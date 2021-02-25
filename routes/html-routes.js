@@ -1,21 +1,20 @@
-const router   = require("express").Router();
-const { model } = require("mongoose");
-const path = require("path");
+let path = require("path");
 
-router.get("/", () => {
-    res.sendFile(path.join(_dirname, "../public/index.html"));
-});
+module.exports = function (app) {
 
-router.get("/index", () => {
-    res.sendFile(path.join(_dirname, "../public/index.html"));
-});
+  app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
 
-router.get("/exercise", () => {
-    res.sendFile(path.join(_dirname, "../public/exercise.html"));
-});
+  app.get("/stats", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/stats.html"));
+  });
 
-router.get("/stats", () => {
-    res.sendFile(path.join(_dirname, "../public/stats.html"));
-});
+  app.get("/exercise", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/exercise.html"));
+  });
 
-module.exports = router;
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+};
